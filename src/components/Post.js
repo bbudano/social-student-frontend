@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles';
 import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -41,7 +41,7 @@ class Post extends Component {
                         to={`/users/${author}`}
                         color="primary"
                     >{author}</Typography>
-                    <Typography variant="body2" color="textSecondary">{createdAt}</Typography>
+                    <Typography variant="body2" color="textSecondary">{moment(createdAt).fromNow()}</Typography>
                     <Typography variant="body1">{body}</Typography>
                 </CardContent>
             </Card>
