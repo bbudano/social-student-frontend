@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import withStyles from '@material-ui/core/styles/withStyles';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 // MUI
 import Grid from '@material-ui/core/Grid';
@@ -8,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-const styles = {
+const styles = ({
     form: {
         textAlign: 'center'
     },
@@ -21,23 +22,38 @@ const styles = {
     button: {
         marginTop: 20
     }
-}
+})
 
 class login extends Component {
 
     constructor() {
         super();
         this.state = {
-            email: '',
+            username: '',
             password: '',
-            isLoading: false,
-            errors: {}
+            isLoading: false
         }
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log("AUTHENTICATED");
+        this.setState({ isLoading: true })
+        const userData = {
+            username: this.state.username,
+            password: this.state.password
+        }
+        axios.post('/api/auth/login', userData)
+            .then(response => {
+                localStorage.setItem('authToken', `Bearer ${response.data.accessToken}`)
+                this.setState({ isLoading: false })
+                this.props.history.push('/');
+            })
+            .catch(error => {
+                console.log(error);
+                this.setState({
+                    isLoading: false
+                })
+            })
     }
 
     handleChange = (event) => {
@@ -47,8 +63,9 @@ class login extends Component {
     }
 
     render() {
-        
+
         const { classes } = this.props;
+        const { isLoading } = this.state;
 
         return (
             <Grid container className={classes.form}>
@@ -59,8 +76,8 @@ class login extends Component {
                         Login
                     </Typography>
                     <form noValidate onSubmit={this.handleSubmit}>
-                        <TextField id="email" name="email" type="email" label="Email" className={classes.textField}
-                            value={this.state.email} onChange={this.handleChange} fullWidth />
+                        <TextField id="username" name="username" type="text" label="Username" className={classes.textField}
+                            value={this.state.username} onChange={this.handleChange} fullWidth />
                         <TextField id="password" name="password" type="password" label="Password" className={classes.textField}
                             value={this.state.password} onChange={this.handleChange} fullWidth />
                         <Button type="submit" variant="contained" color="primary" className={classes.button}>Login</Button>
