@@ -44,7 +44,7 @@ class login extends Component {
         }
         axios.post('/api/auth/login', userData)
             .then(response => {
-                localStorage.setItem('authToken', `Bearer ${response.data.accessToken}`)
+                localStorage.setItem('accessToken', `Bearer ${response.data.accessToken}`)
                 this.setState({ isLoading: false })
                 this.props.history.push('/');
             })

@@ -37,7 +37,7 @@ const theme = createMuiTheme({
 });
 
 let authenticated;
-const token = localStorage.authToken;
+const token = localStorage.accessToken;
 if (token) {
   const decodedToken = jwtDecode(token);
   if (decodedToken.exp * 1000 < Date.now()) {
