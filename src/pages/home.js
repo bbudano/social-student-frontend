@@ -13,7 +13,7 @@ class home extends Component {
     }
 
     componentDidMount() {
-        axios.get('/post')
+        axios.get('/api/post')
         .then(response => {
             this.setState({
                 posts: response.data.content
