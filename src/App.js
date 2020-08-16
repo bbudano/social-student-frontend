@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
+import themeFile from './util/theme';
 import jwtDecode from 'jwt-decode'
+import axios from 'axios';
+
+// Redux
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import { SET_AUTHENTICATED } from './redux/types';
+import { logoutUser, getUserData } from './redux/actions/userActions';
 
 // MUI
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
@@ -16,35 +24,18 @@ import home from './pages/home';
 import login from './pages/login';
 import signup from './pages/signup';
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      light: '#4dabf5',
-      main: '#2196f3',
-      dark: '#1769aa',
-      contrastText: '#fff'
-    },
-    secondary: {
-      light: '#f6734b',
-      main: '#f4511e',
-      dark: '#aa3815',
-      contrastText: '#fff'
-    },
-  },
-  typography: {
-    useNextVariants: true
-  }
-});
+const theme = createMuiTheme(themeFile);
 
-let authenticated;
-const token = localStorage.accessToken;
+const token = localStorage.getItem('token');
 if (token) {
   const decodedToken = jwtDecode(token);
   if (decodedToken.exp * 1000 < Date.now()) {
-    window.location.href = '/login'
-    authenticated = false;
+    store.dispatch(logoutUser());
+    window.location.href = '/login';
   } else {
-    authenticated = true;
+    store.dispatch({ type: SET_AUTHENTICATED });
+    axios.defaults.headers.common['Authorization'] = token;
+    store.dispatch(getUserData());
   }
 }
 
@@ -52,16 +43,18 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-            <Router>
-              <div className="container">
-                <Navbar />
-                <Switch>
-                  <Route exact path="/" component={home} />
-                  <AuthRoute exact path="/login" component={login} authenticated={authenticated} />
-                  <AuthRoute exact path="/signup" component={signup} authenticated={authenticated} />
-                </Switch>
-              </div>
-            </Router>
+        <Provider store={store}>
+          <Router>
+            <div className="container">
+              <Navbar />
+              <Switch>
+                <Route exact path="/" component={home} />
+                <AuthRoute exact path="/login" component={login} />
+                <AuthRoute exact path="/signup" component={signup} />
+              </Switch>
+            </div>
+          </Router>
+        </Provider>
       </MuiThemeProvider>
     );
   }
