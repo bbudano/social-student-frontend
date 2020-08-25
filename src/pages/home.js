@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
-import axios from 'axios';
+import PropTypes from 'prop-types';
+
+// Redux
+import { connect } from 'react-redux';
+import { getPosts } from '../redux/actions/dataActions';
 
 // MUI
 import Grid from '@material-ui/core/Grid'
@@ -9,24 +13,16 @@ import Profile from '../components/Profile';
 
 class home extends Component {
 
-    state = {
-        posts: null
-    }
-
     componentDidMount() {
-        axios.get('/api/post')
-        .then(response => {
-            this.setState({
-                posts: response.data.content
-            })
-        })
-        .catch(error => console.log(error))
+        this.props.getPosts();
     }
 
     render() {
 
-        let recentPostsMarkup =  this.state.posts ? (
-            this.state.posts.map(post => <Post key={post.id} post={post} />)
+        const { posts, isLoading } = this.props.data;
+
+        let recentPostsMarkup =  !isLoading ? (
+            posts.map((post) => <Post key={post.id} post={post} />)
         ) : <p>Loading...</p>
 
         return (
@@ -42,4 +38,16 @@ class home extends Component {
     }
 }
 
-export default home
+home.propTypes = {
+    getPosts: PropTypes.func.isRequired,
+    data: PropTypes.object.isRequired
+  };
+  
+  const mapStateToProps = (state) => ({
+    data: state.data
+  });
+  
+  export default connect(
+    mapStateToProps,
+    { getPosts }
+  )(home);

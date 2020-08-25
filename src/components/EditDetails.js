@@ -1,41 +1,28 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types';
 
+import CustomButton from '../util/CustomButton';
+
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles';
-import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 
 // Redux
 import { connect } from 'react-redux';
 import { editUserDetails } from '../redux/actions/userActions';
 
-const styles = {
-    palette: {
-        primary: {
-            light: '#4dabf5',
-            main: '#2196f3',
-            dark: '#1769aa',
-            contrastText: '#fff'
-        },
-        secondary: {
-            light: '#f6734b',
-            main: '#f4511e',
-            dark: '#aa3815',
-            contrastText: '#fff'
-        },
-    },
-    typography: {
-        useNextVariants: true
+const styles = (theme) => ({
+    ...theme.spreadObject,
+    button: {
+        float: 'right'
     }
-}
+})
 
 class EditDetails extends Component {
 
@@ -93,60 +80,58 @@ class EditDetails extends Component {
 
         return (
             <Fragment>
-                <Tooltip title="Edit details" placement="top">
-                    <IconButton onClick={this.handleOpen} className={classes.button}>
-                        <EditIcon color="primary" />
-                    </IconButton>
-                </Tooltip>
+                <CustomButton tip="Edit profile" onClick={this.handleOpen} btnClassName={classes.button}>
+                    <EditIcon color="primary" />
+                </CustomButton>
                 <Dialog
-                open={this.state.open}
-                onClose={this.handleClose}
-                fullWidth
-                maxWidth="sm">
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                    fullWidth
+                    maxWidth="sm">
                     <DialogTitle>Edit your profile details</DialogTitle>
                     <DialogContent>
                         <form>
                             <TextField
-                            name="bio"
-                            type="text"
-                            label="Bio"
-                            multiline
-                            rows="3"
-                            placeholder="Say something about yourself!"
-                            className={classes.textField}
-                            value={this.state.bio}
-                            onChange={this.handleChange}
-                            fullWidth
+                                name="bio"
+                                type="text"
+                                label="Bio"
+                                multiline
+                                rows="3"
+                                placeholder="Say something about yourself!"
+                                className={classes.textField}
+                                value={this.state.bio}
+                                onChange={this.handleChange}
+                                fullWidth
                             />
                             <TextField
-                            name="website"
-                            type="text"
-                            label="Website"
-                            placeholder="Your website"
-                            className={classes.textField}
-                            value={this.state.website}
-                            onChange={this.handleChange}
-                            fullWidth
+                                name="website"
+                                type="text"
+                                label="Website"
+                                placeholder="Your website"
+                                className={classes.textField}
+                                value={this.state.website}
+                                onChange={this.handleChange}
+                                fullWidth
                             />
                             <TextField
-                            name="githubProfile"
-                            type="text"
-                            label="Github profile"
-                            placeholder="Your Github profile"
-                            className={classes.textField}
-                            value={this.state.githubProfile}
-                            onChange={this.handleChange}
-                            fullWidth
+                                name="githubProfile"
+                                type="text"
+                                label="Github profile"
+                                placeholder="Your Github profile"
+                                className={classes.textField}
+                                value={this.state.githubProfile}
+                                onChange={this.handleChange}
+                                fullWidth
                             />
                             <TextField
-                            name="linkedinProfile"
-                            type="text"
-                            label="LinkedIn profile"
-                            placeholder="Your LinkedIn profile"
-                            className={classes.textField}
-                            value={this.state.linkedinProfile}
-                            onChange={this.handleChange}
-                            fullWidth
+                                name="linkedinProfile"
+                                type="text"
+                                label="LinkedIn profile"
+                                placeholder="Your LinkedIn profile"
+                                className={classes.textField}
+                                value={this.state.linkedinProfile}
+                                onChange={this.handleChange}
+                                fullWidth
                             />
                         </form>
                     </DialogContent>

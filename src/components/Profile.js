@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import EditDetails from './EditDetails';
+import CustomButton from '../util/CustomButton';
 
 // Redux
 import { connect } from 'react-redux';
@@ -22,55 +23,11 @@ import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
-import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 
 const styles = (theme) => ({
-    paper: {
-        padding: 20
-      },
-      profile: {
-        '& .image-wrapper': {
-          textAlign: 'center',
-          position: 'relative',
-          '& button': {
-            position: 'absolute',
-            top: '80%',
-            left: '70%'
-          }
-        },
-        '& .profile-image': {
-          width: 200,
-          height: 200,
-          objectFit: 'cover',
-          maxWidth: '100%',
-          borderRadius: '50%'
-        },
-        '& .profile-details': {
-          textAlign: 'center',
-          '& span, svg': {
-            verticalAlign: 'middle'
-          },
-          '& a': {
-            color: '#2196f3'
-          }
-        },
-        '& hr': {
-          border: 'none',
-          margin: '0 0 10px 0'
-        },
-        '& svg.button': {
-          '&:hover': {
-            cursor: 'pointer'
-          }
-        }
-      },
-      buttons: {
-        textAlign: 'center',
-        '& a': {
-          margin: '20px 10px'
-        }
-      }
+    ...theme.spreadObject
 })
 
 class Profile extends Component {
@@ -137,25 +94,23 @@ class Profile extends Component {
                         <CalendarTodayIcon color="primary" />{' '}
                         <span>Joined {moment(joinedOn).format('MMM YYYY.')}</span>
                     </div>
-                    <Tooltip title="Logout" placement="top">
-                        <IconButton onClick={this.handleLogout}>
-                            <KeyboardReturn color="secondary" />
-                        </IconButton>
-                    </Tooltip>
+                    <CustomButton tip="Logout" onClick={this.handleLogout}>
+                        <ExitToAppIcon color="secondary" />
+                    </CustomButton>
                     <EditDetails />
                 </div>
             </Paper>
         ) : (
-            <Paper className={classes.paper}>
-                <Typography variant="body2" align="center">
-                    No user logged in.
+                <Paper className={classes.paper}>
+                    <Typography variant="body2" align="center">
+                        No user logged in.
                 </Typography>
-                <div className={classes.buttons}>
-                    <Button variant="contained" color="primary" component={Link} to="/login">Login</Button>
-                    <Button variant="contained" color="secondary" component={Link} to="/signup">Sign up</Button>
-                </div>
-            </Paper>
-        )) : (<p>loading...</p>)
+                    <div className={classes.buttons}>
+                        <Button variant="contained" color="primary" component={Link} to="/login">Login</Button>
+                        <Button variant="contained" color="secondary" component={Link} to="/signup">Sign up</Button>
+                    </div>
+                </Paper>
+            )) : (<p>loading...</p>)
 
         return profileMarkup;
     }
