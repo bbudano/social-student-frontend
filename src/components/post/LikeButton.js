@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import CustomButton from '../util/CustomButton';
+import CustomButton from '../../util/CustomButton';
 // MUI
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 // Redux
 import { connect } from 'react-redux';
-import { likePost, unlikePost } from '../redux/actions/dataActions';
+import { likePost, unlikePost } from '../../redux/actions/dataActions';
 
 class LikeButton extends Component {
 

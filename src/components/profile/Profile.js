@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import EditDetails from './EditDetails';
-import CustomButton from '../util/CustomButton';
+import CustomButton from '../../util/CustomButton';
 
 // Redux
 import { connect } from 'react-redux';
-import { logoutUser } from '../redux/actions/userActions';
+import { logoutUser } from '../../redux/actions/userActions';
 
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -16,8 +16,6 @@ import Button from '@material-ui/core/Button';
 import MuiLink from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
 import LinkIcon from '@material-ui/icons/Link';
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
 import GitHubIcon from '@material-ui/icons/GitHub';
@@ -52,10 +50,10 @@ class Profile extends Component {
                 <div className={classes.profile}>
                     {/* <div className="profile-image">
                         <img />
-                    </div>
-                    <hr /> */}
+                    </div> */}
+                    <hr />
                     <div className="profile-details">
-                        <MuiLink component={Link} to={`/user/${username}`} color="primary" variant="h5">
+                        <MuiLink component={Link} to={`/users/${username}`} color="primary" variant="h5">
                             @{username}
                         </MuiLink>
                         <hr />

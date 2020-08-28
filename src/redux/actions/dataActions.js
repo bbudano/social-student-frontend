@@ -9,7 +9,8 @@ import {
     DELETE_POST,
     SET_ERRORS,
     CLEAR_ERRORS,
-    SET_POST } from '../types';
+    SET_POST,
+    SUBMIT_COMMENT } from '../types';
 import axios from 'axios';
 
 export const createPost = (newPost) => (dispatch) => {
@@ -20,14 +21,14 @@ export const createPost = (newPost) => (dispatch) => {
             type: CREATE_POST,
             payload: response.data
         });
-        dispatch({ type: CLEAR_ERRORS })
+        dispatch(clearErrors());
     })
     .catch(error => {
         dispatch({
             type: SET_ERRORS,
             payload: error.response.data
         })
-        dispatch({ type: CLEAR_ERRORS })
+        dispatch(clearErrors());
     })
 }
 
@@ -64,7 +65,6 @@ export const getPost = (postId) => (dispatch) => {
 export const likePost = (postId) => (dispatch) => {
     axios.get(`/api/post/${postId}/like`)
     .then(response => {
-        console.log(response.data)
         dispatch({
             type: LIKE_POST,
             payload: response.data
@@ -76,13 +76,29 @@ export const likePost = (postId) => (dispatch) => {
 export const unlikePost = (postId) => (dispatch) => {
     axios.get(`/api/post/${postId}/unlike`)
     .then(response => {
-        console.log(response.data)
         dispatch({
             type: UNLIKE_POST,
             payload: response.data
         })
     })
     .catch(error => console.log(error));
+}
+
+export const submitComment = (postId, commentData) => (dispatch) => {
+    axios.post(`/api/post/${postId}/comment`, commentData)
+    .then(response => {
+        dispatch({
+            type: SUBMIT_COMMENT,
+            payload: response.data
+        })
+        dispatch(clearErrors());
+    })
+    .catch(error => {
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data
+        })
+    })
 }
 
 export const deletePost = (postId) => (dispatch) => {
@@ -94,6 +110,23 @@ export const deletePost = (postId) => (dispatch) => {
         })
     })
     .catch(error => console.log(error));
+}
+
+export const getUser = (username) => (dispatch) => {
+    dispatch({ type: LOADING_DATA });
+    axios.get(`/api/user/${username}`)
+    .then(response => {
+        dispatch({
+            type: SET_POSTS,
+            payload: response.data.posts
+        });
+    })
+    .catch(() => {
+        dispatch({
+            type: SET_POSTS,
+            payload: null
+        });
+    });
 }
 
 export const clearErrors = () => (dispatch) => {

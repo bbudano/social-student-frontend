@@ -2,8 +2,10 @@ import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import CustomButton from '../util/CustomButton';
+import CustomButton from '../../util/CustomButton';
 import LikeButton from './LikeButton';
+import Comments from './Comments';
+import CommentForm from './CommentForm';
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles';
 import Dialog from '@material-ui/core/Dialog';
@@ -17,14 +19,10 @@ import UnfoldMore from '@material-ui/icons/UnfoldMore';
 import ChatIcon from '@material-ui/icons/Chat';
 // Redux
 import { connect } from 'react-redux';
-import { getPost } from '../redux/actions/dataActions';
+import { getPost } from '../../redux/actions/dataActions';
 
 const styles = theme => ({
     ...theme.spreadObject,
-    invisibleHorizontalRuler: {
-        border: 'none',
-        margin: 4
-    },
     dialogContent: {
         padding: 20
     },
@@ -60,7 +58,7 @@ class PostDialog extends Component {
     render() {
         const {
             classes,
-            post: { id, body, postedOn, likeCount, commentCount, author },
+            post: { id, author, body, postedOn, likeCount, comments, commentCount },
             UI: { isLoading }
         } = this.props;
 
@@ -97,6 +95,9 @@ class PostDialog extends Component {
                         </CustomButton>
                         <span>{commentCount} {commentCount === 1 ? "Comment" : "Comments"}</span>
                 </Grid>
+                <hr className={classes.visibleHorizontalRuler}/>
+                <CommentForm postId={id} />
+                <Comments comments={comments} />
             </Grid>
         )
 

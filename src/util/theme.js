@@ -20,6 +20,9 @@ export default {
         form: {
             textAlign: 'center'
         },
+        image: {
+          margin: '20px auto 20px auto'
+        },
         pageTitle: {
             margin: '10px auto 10px auto'
         },
@@ -77,6 +80,18 @@ export default {
             '& a': {
                 margin: '20px 10px'
             }
+        },
+        invisibleHorizontalRuler: {
+            border: 'none',
+            margin: 4
+        },
+        visibleHorizontalRuler: {
+            width: '100%',
+            borderBottom: '1px solid rgba(0,0,0,0.1)',
+            marginBottom: 20
+        },
+        adminButton: {
+            marginTop: 25
         }
     }
 }

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types';
-import CustomButton from '../util/CustomButton';
+import CustomButton from '../../util/CustomButton';
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
@@ -13,7 +13,7 @@ import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 // Redux
 import { connect } from 'react-redux';
-import { createPost, clearErrors } from '../redux/actions/dataActions';
+import { createPost, clearErrors } from '../../redux/actions/dataActions';
 
 const styles = (theme) => ({
     ...theme.spreadObject,
@@ -71,7 +71,7 @@ class CreatePost extends Component {
 
     render() {
 
-        const { errors } = this.state;
+        /* const { errors } = this.state; */
         const { classes, UI: { isLoading } } = this.props;
 
         return (

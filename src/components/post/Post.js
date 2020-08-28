@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import CustomButton from '../util/CustomButton';
+import CustomButton from '../../util/CustomButton';
 import DeletePost from './DeletePost';
 import PostDialog from './PostDialog';
 import LikeButton from './LikeButton';
@@ -22,6 +22,9 @@ const styles = {
         position: 'relative',
         display: 'flex',
         marginBottom: 20
+    },
+    image: {
+        minWidth: 200
     },
     content: {
         padding: 25,
@@ -44,13 +47,14 @@ class Post extends Component {
                 commentCount },
             user: {
                 authenticated,
-                credentials: { username }
+                credentials: { username },
+                roles
             }
         } = this.props;
 
-        
+        const isAdmin = (roles && (roles.includes('ROLE_ADMIN')))
 
-        const deleteButton = authenticated && author === username ? (
+        const deleteButton = ((authenticated && author === username) || isAdmin) ? (
             <DeletePost postId={id} />
         ) : null
 

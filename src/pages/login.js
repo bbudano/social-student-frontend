@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import withStyles from '@material-ui/core/styles/withStyles';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 
 // MUI
 import Grid from '@material-ui/core/Grid';
@@ -25,12 +24,15 @@ class login extends Component {
         super();
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            errors: {}
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ errors: nextProps.UI.errors });
+        if (nextProps.UI.errors) {
+            this.setState({ errors: nextProps.UI.errors }, console.log("STIGLI ERRORI", this.state.errors));
+        }
     }
 
     handleSubmit = (event) => {
@@ -51,6 +53,7 @@ class login extends Component {
     render() {
 
         const { classes, UI: { isLoading } } = this.props;
+        const { errors } = this.state;
 
         return (
             <Grid container className={classes.form}>
@@ -61,10 +64,28 @@ class login extends Component {
                         Login
                     </Typography>
                     <form noValidate onSubmit={this.handleSubmit}>
-                        <TextField id="username" name="username" type="text" label="Username" className={classes.textField}
-                            value={this.state.username} onChange={this.handleChange} fullWidth />
-                        <TextField id="password" name="password" type="password" label="Password" className={classes.textField}
-                            value={this.state.password} onChange={this.handleChange} fullWidth />
+                        <TextField
+                            id="username"
+                            name="username"
+                            type="text"
+                            label="Username"
+                            className={classes.textField}
+                            helperText={errors.type === "USERNAME_ERROR" && errors.message}
+                            error={errors.type === "USERNAME_ERROR" ? true : false}
+                            value={this.state.username}
+                            onChange={this.handleChange}
+                            fullWidth />
+                        <TextField
+                            id="password"
+                            name="password"
+                            type="password"
+                            label="Password"
+                            className={classes.textField}
+                            helperText={errors.type === "PASSWORD_ERROR" && errors.message}
+                            error={errors.type === "PASSWORD_ERROR" ? true : false}
+                            value={this.state.password}
+                            onChange={this.handleChange}
+                            fullWidth />
                         <Button disabled={isLoading} type="submit" variant="contained" color="primary" className={classes.button}>
                             Login
                             {isLoading && (

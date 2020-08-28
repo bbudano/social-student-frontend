@@ -8,8 +8,8 @@ import { getPosts } from '../redux/actions/dataActions';
 // MUI
 import Grid from '@material-ui/core/Grid'
 
-import Post from '../components/Post';
-import Profile from '../components/Profile';
+import Post from '../components/post/Post';
+import Profile from '../components/profile/Profile';
 
 class home extends Component {
 
