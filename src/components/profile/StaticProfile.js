@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import avatarImage from '../../static/avatar.png';
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles';
 import MuiLink from '@material-ui/core/Link';
@@ -17,32 +18,39 @@ import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 // Icons
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import PersonIcon from '@material-ui/icons/Person';
+// Redux
+import { connect } from 'react-redux';
 
 const styles = theme => ({
     ...theme.spreadObject
 })
 
 const StaticProfile = (props) => {
-    const { classes, profile: { username, bio, email, website, githubProfile, linkedinProfile, joinedOn } } = props;
+    const {
+        classes,
+        profile: { username, bio, email, website, githubProfile, linkedinProfile, joinedOn },
+        user,
+        isAdmin
+    } = props;
 
-    // temporarily hardcoded
-    let isProfileAdmin = false;
-    let adminButton = isProfileAdmin ? (
+    const isAuthenticatedUserAdmin = (user.roles && (user.roles.includes('ROLE_ADMIN')))
+
+    let adminButton = isAdmin ? (
         <Button className={classes.adminButton} variant="contained" color="primary">
             Take Admin Permissions{' '}<PersonIcon style={{ marginLeft: 10 }} />
         </Button>
     ) : (
-        <Button className={classes.adminButton} variant="contained" color="secondary">
-            Give Admin Permissions{' '}<SupervisorAccountIcon style={{ marginLeft: 10 }} />
-        </Button>
-    )
+            <Button className={classes.adminButton} variant="contained" color="secondary">
+                Give Admin Permissions{' '}<SupervisorAccountIcon style={{ marginLeft: 10 }} />
+            </Button>
+        )
 
     return (
         <Paper className={classes.paper}>
             <div className={classes.profile}>
-                {/* <div className="profile-image">
-                        <img />
-                    </div> */}
+                <div className="image-wrapper">
+                    <img src={avatarImage} alt="avatar" className="profile-image" />
+                </div>
                 <hr />
                 <div className="profile-details">
                     <MuiLink component={Link} to={`/user/${username}`} color="primary" variant="h5">
@@ -85,7 +93,7 @@ const StaticProfile = (props) => {
                     <CalendarTodayIcon color="primary" />{' '}
                     <span>Joined {moment(joinedOn).format('MMM YYYY.')}</span>
                     <hr />
-                    {adminButton}
+                    {(username !== user.credentials.username && isAuthenticatedUserAdmin) && adminButton}
                 </div>
             </div>
         </Paper>
@@ -93,8 +101,14 @@ const StaticProfile = (props) => {
 }
 
 StaticProfile.propTypes = {
+    user: PropTypes.object.isRequired,
     profile: PropTypes.object.isRequired,
+    isAdmin: PropTypes.bool.isRequired,
     classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(StaticProfile)
+const mapStateToProps = state => ({
+    user: state.user
+})
+
+export default connect(mapStateToProps)(withStyles(styles)(StaticProfile));

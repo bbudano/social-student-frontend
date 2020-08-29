@@ -11,9 +11,10 @@ import { connect } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
 import ToolBar from '@material-ui/core/ToolBar';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 import HomeIcon from '@material-ui/icons/Home';
-import Notifications from '@material-ui/icons/Notifications';
+import SchoolIcon from '@material-ui/icons/School';
 
 class Navbar extends Component {
     render() {
@@ -22,18 +23,20 @@ class Navbar extends Component {
 
         return (
             <AppBar>
+                <Typography className="app-name-typography" variant="h5">
+                    <SchoolIcon style={{ marginRight: '10px' }} />
+                    socialStudent
+                    </Typography>
                 <ToolBar className="nav-container">
+
                     {authenticated ? (
                         <Fragment>
                             <CreatePost />
                             <Link to="/">
                                 <CustomButton tip="Home">
-                                    <HomeIcon color="primary" />
+                                    <HomeIcon />
                                 </CustomButton>
                             </Link>
-                            <CustomButton tip="Notifications">
-                                <Notifications color="primary" />
-                            </CustomButton>
                         </Fragment>
                     ) : (
                             <Fragment>

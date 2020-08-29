@@ -6,6 +6,7 @@ import CustomButton from '../../util/CustomButton';
 import DeletePost from './DeletePost';
 import PostDialog from './PostDialog';
 import LikeButton from './LikeButton';
+import avatarImage from '../../static/avatar.png';
 // Redux
 import { connect } from 'react-redux';
 // MUI
@@ -60,10 +61,10 @@ class Post extends Component {
 
         return (
             <Card className={classes.card}>
-                {/* <CardMedia
+                <CardMedia
                 className={classes.image}
-                image={}
-                title="Profile image" /> */}
+                image={avatarImage}
+                title="Profile image" />
                 <CardContent className={classes.content}>
                     <Typography
                         variant="h5"

@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import avatarImage from '../../static/avatar.png';
 
 import EditDetails from './EditDetails';
 import CustomButton from '../../util/CustomButton';
@@ -48,9 +49,9 @@ class Profile extends Component {
         let profileMarkup = !isLoading ? (authenticated ? (
             <Paper className={classes.paper}>
                 <div className={classes.profile}>
-                    {/* <div className="profile-image">
-                        <img />
-                    </div> */}
+                    <div className="image-wrapper">
+                        <img src={avatarImage} alt="avatar" className="profile-image" />
+                    </div>
                     <hr />
                     <div className="profile-details">
                         <MuiLink component={Link} to={`/users/${username}`} color="primary" variant="h5">

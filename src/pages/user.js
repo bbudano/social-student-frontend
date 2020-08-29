@@ -12,7 +12,8 @@ import { getUser } from '../redux/actions/dataActions';
 class user extends Component {
 
     state = {
-        profile: null
+        profile: null,
+        isAdmin: null
     }
 
     componentDidMount() {
@@ -20,8 +21,10 @@ class user extends Component {
         this.props.getUser(username);
         axios.get(`/api/user/${username}`)
             .then(response => {
+                console.log(response.data)
                 this.setState({
-                    profile: response.data.user
+                    profile: response.data.user,
+                    isAdmin: response.data.isAdmin
                 });
             })
             .catch(error => console.log(error));
@@ -48,7 +51,7 @@ class user extends Component {
                     {this.state.profile === null ? (
                         <p>Loading profile...</p>
                     ) : (
-                        <StaticProfile profile={this.state.profile} />
+                        <StaticProfile isAdmin={this.state.isAdmin} profile={this.state.profile} />
                     )}
                 </Grid>
             </Grid>

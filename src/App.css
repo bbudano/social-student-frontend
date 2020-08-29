@@ -11,7 +11,7 @@ body {
   max-width: 1200px;
 }
 
-.nav-container {
+.nav-container{
   margin: auto;
 }
 
@@ -21,4 +21,10 @@ body {
 
 a {
   text-decoration: none;
+}
+
+.app-name-typography {
+  left: 12%;
+  top: 25%;
+  position: absolute;
 }

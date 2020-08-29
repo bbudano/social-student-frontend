@@ -6,6 +6,7 @@ import CustomButton from '../../util/CustomButton';
 import LikeButton from './LikeButton';
 import Comments from './Comments';
 import CommentForm from './CommentForm';
+import avatarImage from '../../static/avatar.png';
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles';
 import Dialog from '@material-ui/core/Dialog';
@@ -23,6 +24,12 @@ import { getPost } from '../../redux/actions/dataActions';
 
 const styles = theme => ({
     ...theme.spreadObject,
+    profileImage: {
+        maxWidth: 200,
+        height: 200,
+        borderRadius: '50%',
+        objectFit: 'cover'
+    },
     dialogContent: {
         padding: 20
     },
@@ -67,16 +74,16 @@ class PostDialog extends Component {
                 <CircularProgress size={200} thickness={2} />
             </div>
         ) : (
-            <Grid container spacing={16}>
-                {/* <Grid item sm={5}>
-                    <img />
-                </Grid> */}
-                <Grid item sm={12}>
-                    <Typography
-                        component={Link}
-                        color="primary"
-                        variant="h5"
-                        to={`/users/${author}`}
+                <Grid container spacing={16}>
+                    <Grid item sm={5}>
+                        <img src={avatarImage} alt="Avatar" className={classes.profileImage} />
+                    </Grid>
+                    <Grid item sm={7}>
+                        <Typography
+                            component={Link}
+                            color="primary"
+                            variant="h5"
+                            to={`/users/${author}`}
                         >
                             @{author}
                         </Typography>
@@ -94,12 +101,12 @@ class PostDialog extends Component {
                             <ChatIcon color="primary" />
                         </CustomButton>
                         <span>{commentCount} {commentCount === 1 ? "Comment" : "Comments"}</span>
+                    </Grid>
+                    <hr className={classes.visibleHorizontalRuler} />
+                    <CommentForm postId={id} />
+                    <Comments comments={comments} />
                 </Grid>
-                <hr className={classes.visibleHorizontalRuler}/>
-                <CommentForm postId={id} />
-                <Comments comments={comments} />
-            </Grid>
-        )
+            )
 
         return (
             <Fragment>
