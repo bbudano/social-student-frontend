@@ -21,9 +21,19 @@ class user extends Component {
         this.props.getUser(username);
         axios.get(`/api/user/${username}`)
             .then(response => {
-                console.log(response.data)
                 this.setState({
                     profile: response.data.user,
+                    isAdmin: response.data.isAdmin
+                });
+            })
+            .catch(error => console.log(error));
+    }
+
+    updateUserAdminPermissions = () => {
+        const username = this.props.match.params.username;
+        axios.post(`/api/auth/${username}/admin`)
+            .then(response => {
+                this.setState({
                     isAdmin: response.data.isAdmin
                 });
             })
@@ -44,15 +54,15 @@ class user extends Component {
 
         return (
             <Grid container spacing={8}>
-                <Grid item sm={8} xs={12}>
-                    {postsMarkup}
-                </Grid>
                 <Grid item sm={4} xs={12}>
                     {this.state.profile === null ? (
                         <p>Loading profile...</p>
                     ) : (
-                        <StaticProfile isAdmin={this.state.isAdmin} profile={this.state.profile} />
-                    )}
+                            <StaticProfile isAdmin={this.state.isAdmin} profile={this.state.profile} updateUserAdminPermissions={this.updateUserAdminPermissions} />
+                        )}
+                </Grid>
+                <Grid item sm={8} xs={12}>
+                    {postsMarkup}
                 </Grid>
             </Grid>
         )

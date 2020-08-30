@@ -36,11 +36,11 @@ const StaticProfile = (props) => {
     const isAuthenticatedUserAdmin = (user.roles && (user.roles.includes('ROLE_ADMIN')))
 
     let adminButton = isAdmin ? (
-        <Button className={classes.adminButton} variant="contained" color="primary">
+        <Button className={classes.adminButton} variant="contained" color="primary" onClick={props.updateUserAdminPermissions}>
             Take Admin Permissions{' '}<PersonIcon style={{ marginLeft: 10 }} />
         </Button>
     ) : (
-            <Button className={classes.adminButton} variant="contained" color="secondary">
+            <Button className={classes.adminButton} variant="contained" color="secondary" onClick={props.updateUserAdminPermissions}>
                 Give Admin Permissions{' '}<SupervisorAccountIcon style={{ marginLeft: 10 }} />
             </Button>
         )
@@ -104,7 +104,8 @@ StaticProfile.propTypes = {
     user: PropTypes.object.isRequired,
     profile: PropTypes.object.isRequired,
     isAdmin: PropTypes.bool.isRequired,
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    updateUserAdminPermissions: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({

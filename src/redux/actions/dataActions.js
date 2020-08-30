@@ -27,8 +27,7 @@ export const createPost = (newPost) => (dispatch) => {
         dispatch({
             type: SET_ERRORS,
             payload: error.response.data
-        })
-        dispatch(clearErrors());
+        });
     })
 }
 

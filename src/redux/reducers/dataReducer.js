@@ -20,7 +20,6 @@ export default function(state = initialState, action) {
                 isLoading: false
             }
         case SET_POST:
-            console.log(action.payload)
             return {
                 ...state,
                 post: action.payload

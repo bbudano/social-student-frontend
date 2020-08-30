@@ -10,6 +10,7 @@ import {
 const initialState = {
     authenticated: false,
     credentials: {},
+    roles: [],
     isLoading: false,
     likes: [],
     notifications: []
@@ -25,7 +26,6 @@ export default function(state = initialState, action) {
         case SET_UNAUTHENTICATED:
             return initialState;
         case SET_USER:
-            console.log(action)
             return {
                 authenticated: true,
                 isLoading: false,

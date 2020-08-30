@@ -65,9 +65,22 @@ class PostDialog extends Component {
     render() {
         const {
             classes,
+            user: { authenticated },
             post: { id, author, body, postedOn, likeCount, comments, commentCount },
             UI: { isLoading }
         } = this.props;
+
+        const expandButton = !authenticated ? (
+            <Link to="/login">
+                <CustomButton tip="Expand" tipClassName={classes.expandButton}>
+                    <UnfoldMore color="primary" />
+                </CustomButton>
+            </Link>
+        ) : (
+                <CustomButton tip="Expand" onClick={this.handleOpen} tipClassName={classes.expandButton}>
+                    <UnfoldMore color="primary" />
+                </CustomButton>
+            );
 
         const dialogMarkup = isLoading ? (
             <div className={classes.spinnerDiv}>
@@ -110,9 +123,7 @@ class PostDialog extends Component {
 
         return (
             <Fragment>
-                <CustomButton tip="Expand" onClick={this.handleOpen} tipClassName={classes.expandButton}>
-                    <UnfoldMore color="primary" />
-                </CustomButton>
+                {expandButton}
                 <Dialog open={this.state.isOpen} onClose={this.handleClose} fullWidth maxWidth="sm">
                     <CustomButton tip="Close" onClick={this.handleClose} tipClassName={classes.closeButton}>
                         <CloseIcon />
@@ -127,6 +138,7 @@ class PostDialog extends Component {
 }
 
 PostDialog.propTypes = {
+    user: PropTypes.object.isRequired,
     getPost: PropTypes.func.isRequired,
     postId: PropTypes.number.isRequired,
     username: PropTypes.string.isRequired,
@@ -135,6 +147,7 @@ PostDialog.propTypes = {
 }
 
 const mapStateToProps = state => ({
+    user: state.user,
     post: state.data.post,
     UI: state.UI
 })

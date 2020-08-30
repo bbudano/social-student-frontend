@@ -16,8 +16,18 @@ const styles = theme => ({
 class CommentForm extends Component {
 
     state = {
-        body: ''
+        body: '',
+        errors: {}
     }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.UI.errors) {
+          this.setState({ errors: nextProps.UI.errors });
+        }
+        if (!nextProps.UI.errors && !nextProps.UI.isLoading) {
+          this.setState({ body: '' });
+        }
+      }
 
     handleChange = (event) => {
         this.setState({ [event.target.name]: event.target.value });
@@ -35,6 +45,7 @@ class CommentForm extends Component {
     render() {
 
         const { classes, authenticated } = this.props;
+        const { errors } = this.state;
 
         const commentFormMarkup = authenticated ? (
             <Grid item sm={12} style={{ textAlign: 'center' }}>
@@ -43,6 +54,8 @@ class CommentForm extends Component {
                         name="body"
                         type="text"
                         label="Comment on post"
+                        helperText={errors.type === "COMMENT_ERROR" && errors.message}
+                        error={errors.type === "COMMENT_ERROR" ? true : false}
                         value={this.state.body}
                         onChange={this.handleChange}
                         fullWidth

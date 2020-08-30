@@ -40,10 +40,10 @@ class CreatePost extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps.UI.errors) {
+        if (nextProps.UI.errors) {
             this.setState({ errors: nextProps.UI.errors });
         }
-        if(!nextProps.UI.errors && !nextProps.UI.loading) {
+        if (!nextProps.UI.errors && !nextProps.UI.isLoading) {
             this.setState({ body: '', isOpen: false, errors: {} });
         }
     }
@@ -71,7 +71,7 @@ class CreatePost extends Component {
 
     render() {
 
-        /* const { errors } = this.state; */
+        const { errors } = this.state;
         const { classes, UI: { isLoading } } = this.props;
 
         return (
@@ -87,21 +87,23 @@ class CreatePost extends Component {
                     <DialogContent>
                         <form onSubmit={this.handleSubmit}>
                             <TextField
-                            name="body"
-                            type="text"
-                            label="Your new post"
-                            multiline
-                            rows="3"
-                            className={classes.textField}
-                            onChange={this.handleChange}
-                            fullWidth
+                                name="body"
+                                type="text"
+                                label="Your new post"
+                                multiline
+                                rows="3"
+                                helperText={errors.type === "POST_ERROR" && errors.message}
+                                error={errors.type === "POST_ERROR" ? true : false}
+                                className={classes.textField}
+                                onChange={this.handleChange}
+                                fullWidth
                             />
                             <Button
-                            type="submit"
-                            variant="contained"
-                            color="primary"
-                            className={classes.submitButton}
-                            disabled={isLoading}>
+                                type="submit"
+                                variant="contained"
+                                color="primary"
+                                className={classes.submitButton}
+                                disabled={isLoading}>
                                 Post
                                 {isLoading && (<CircularProgress size={30} className={classes.progressSpinner} />)}
                             </Button>

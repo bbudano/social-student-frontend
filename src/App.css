@@ -24,7 +24,13 @@ a {
 }
 
 .app-name-typography {
-  left: 12%;
+  left: 11%;
   top: 25%;
   position: absolute;
+}
+
+@media screen and (max-width: 600px) {
+  .app-name-typography {
+    visibility: hidden;
+  }
 }

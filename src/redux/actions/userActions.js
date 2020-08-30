@@ -11,7 +11,6 @@ export const loginUser = (userData, history) => (dispatch) => {
             history.push('/');
         })
         .catch(error => {
-            console.log(error.response.data)
             dispatch({
                 type: SET_ERRORS,
                 payload: error.response.data
@@ -29,7 +28,6 @@ export const signupUser = (newUserData, history) => (dispatch) => {
             history.push('/login');
         })
         .catch(error => {
-            console.log(error.response.data)
             dispatch({
                 type: SET_ERRORS,
                 payload: error.response.data
@@ -57,13 +55,11 @@ export const getUserData = () => (dispatch) => {
 
 export const editUserDetails = (userDetails) => (dispatch) => {
     dispatch({ type: LOADING_USER })
-    console.log("TU SAM")
     axios({
         method: 'PATCH',
         url: '/api/user',
         data: userDetails
     }).then(() => {
-        console.log("TU SAM")
         dispatch(getUserData())
     }).catch(error => console.log(error));
 }
