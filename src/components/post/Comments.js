@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import moment from 'moment';
-import avatarImage from '../../static/avatar.png';
+import defaultAvatar from '../../static/avatar.png';
 // MUI
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -28,14 +28,15 @@ class Comments extends Component {
         let noComments = <span>No comments to display!</span>;
 
         let commentList = comments.map((comment, index) => {
-            const { id, body, postedOn, author, postId } = comment;
+            const { id, body, postedOn, author, authorAvatar } = comment;
+            const avatar = authorAvatar === null ? defaultAvatar : authorAvatar;
             return (
                 <Fragment key={id}>
                     <Grid item sm={12}>
                         <Grid container>
                             <Grid item sm={2}>
                                 <img
-                                    src={avatarImage}
+                                    src={avatar}
                                     alt="Avatar"
                                     className={classes.commentImage}
                                 />

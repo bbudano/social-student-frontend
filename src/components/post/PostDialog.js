@@ -6,7 +6,7 @@ import CustomButton from '../../util/CustomButton';
 import LikeButton from './LikeButton';
 import Comments from './Comments';
 import CommentForm from './CommentForm';
-import avatarImage from '../../static/avatar.png';
+import defaultAvatar from '../../static/avatar.png';
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles';
 import Dialog from '@material-ui/core/Dialog';
@@ -66,9 +66,11 @@ class PostDialog extends Component {
         const {
             classes,
             user: { authenticated },
-            post: { id, author, body, postedOn, likeCount, comments, commentCount },
+            post: { id, author, authorAvatar, body, postedOn, likeCount, comments, commentCount },
             UI: { isLoading }
         } = this.props;
+
+        const avatar = authorAvatar === null ? defaultAvatar : authorAvatar;
 
         const expandButton = !authenticated ? (
             <Link to="/login">
@@ -89,7 +91,7 @@ class PostDialog extends Component {
         ) : (
                 <Grid container spacing={16}>
                     <Grid item sm={5}>
-                        <img src={avatarImage} alt="Avatar" className={classes.profileImage} />
+                        <img src={avatar} alt="Avatar" className={classes.profileImage} />
                     </Grid>
                     <Grid item sm={7}>
                         <Typography

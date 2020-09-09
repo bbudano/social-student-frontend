@@ -6,7 +6,7 @@ import CustomButton from '../../util/CustomButton';
 import DeletePost from './DeletePost';
 import PostDialog from './PostDialog';
 import LikeButton from './LikeButton';
-import avatarImage from '../../static/avatar.png';
+import defaultAvatar from '../../static/avatar.png';
 // Redux
 import { connect } from 'react-redux';
 // MUI
@@ -43,6 +43,7 @@ class Post extends Component {
                 id,
                 body,
                 author,
+                authorAvatar,
                 postedOn,
                 likeCount,
                 commentCount },
@@ -59,11 +60,13 @@ class Post extends Component {
             <DeletePost postId={id} />
         ) : null
 
+        const avatar = authorAvatar === null ? defaultAvatar : authorAvatar;
+
         return (
             <Card className={classes.card}>
                 <CardMedia
                 className={classes.image}
-                image={avatarImage}
+                image={avatar}
                 title="Profile image" />
                 <CardContent className={classes.content}>
                     <Typography
