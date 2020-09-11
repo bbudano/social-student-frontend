@@ -113,7 +113,7 @@ class Profile extends Component {
                         {website && (
                             <Fragment>
                                 <LinkIcon color="primary" />
-                                <a href={website} target="_blank" rel="noopener noreferrer">
+                                <a href={'//' + website} target="_blank" rel="noopener noreferrer">
                                     {' '}{website}
                                 </a>
                                 <hr />
@@ -122,7 +122,7 @@ class Profile extends Component {
                         {githubProfile && (
                             <Fragment>
                                 <GitHubIcon color="primary" />
-                                <a href={githubProfile} target="_blank" rel="noopener noreferrer">
+                                <a href={'//' + githubProfile} target="_blank" rel="noopener noreferrer">
                                     {' '}{githubProfile}
                                 </a>
                                 <hr />
@@ -131,7 +131,7 @@ class Profile extends Component {
                         {linkedinProfile && (
                             <Fragment>
                                 <LinkedInIcon color="primary" />
-                                <a href={linkedinProfile} target="_blank" rel="noopener noreferrer">
+                                <a href={'//' + linkedinProfile} target="_blank" rel="noopener noreferrer">
                                     {' '}{linkedinProfile}
                                 </a>
                                 <hr />

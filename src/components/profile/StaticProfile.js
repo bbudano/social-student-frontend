@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import avatarImage from '../../static/avatar.png';
+import defaultAvatar from '../../static/avatar.png';
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles';
 import MuiLink from '@material-ui/core/Link';
@@ -28,10 +28,12 @@ const styles = theme => ({
 const StaticProfile = (props) => {
     const {
         classes,
-        profile: { username, bio, email, website, githubProfile, linkedinProfile, joinedOn },
+        profile: { username, bio, avatarUrl, email, website, githubProfile, linkedinProfile, joinedOn },
         user,
         isAdmin
     } = props;
+
+    let avatar = avatarUrl === null ? defaultAvatar : avatarUrl
 
     const isAuthenticatedUserAdmin = (user.roles && (user.roles.includes('ROLE_ADMIN')))
 
@@ -49,7 +51,7 @@ const StaticProfile = (props) => {
         <Paper className={classes.paper}>
             <div className={classes.profile}>
                 <div className="image-wrapper">
-                    <img src={avatarImage} alt="avatar" className="profile-image" />
+                    <img src={avatar} alt="avatar" className="profile-image" />
                 </div>
                 <hr />
                 <div className="profile-details">
