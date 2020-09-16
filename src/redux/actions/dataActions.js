@@ -31,9 +31,9 @@ export const createPost = (newPost) => (dispatch) => {
     })
 }
 
-export const getPosts = () => (dispatch) => {
-    dispatch({ type: LOADING_DATA });
-    axios.get('/api/post')
+export const getPosts = (page, size) => (dispatch) => {
+    if(page === 0) dispatch({ type: LOADING_DATA });
+    axios.get(`/api/post?page=${page}&size=${size}`)
         .then(response => {
             dispatch({
                 type: SET_POSTS,

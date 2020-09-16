@@ -28,6 +28,7 @@ export const signupUser = (newUserData, history) => (dispatch) => {
             history.push('/login');
         })
         .catch(error => {
+            console.log(error.response.data);
             dispatch({
                 type: SET_ERRORS,
                 payload: error.response.data

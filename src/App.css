@@ -11,6 +11,10 @@ body {
   max-width: 1200px;
 }
 
+.load-more-button-wrapper {
+  text-align: center;
+}
+
 .nav-container{
   margin: auto;
 }

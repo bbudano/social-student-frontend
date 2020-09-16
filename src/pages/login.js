@@ -31,7 +31,7 @@ class login extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.UI.errors) {
-            this.setState({ errors: nextProps.UI.errors }, console.log("STIGLI ERRORI", this.state.errors));
+            this.setState({ errors: nextProps.UI.errors });
         }
     }
 

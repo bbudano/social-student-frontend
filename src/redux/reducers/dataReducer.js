@@ -16,7 +16,7 @@ export default function(state = initialState, action) {
         case SET_POSTS:
             return {
                 ...state,
-                posts: action.payload,
+                posts: state.posts.concat(action.payload),
                 isLoading: false
             }
         case SET_POST:
