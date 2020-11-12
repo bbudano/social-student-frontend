@@ -1,4 +1,4 @@
-import { SET_POSTS, SET_POST, CREATE_POST, LIKE_POST, UNLIKE_POST, DELETE_POST, LOADING_DATA, SUBMIT_COMMENT } from '../types';
+import { SET_POSTS, APPEND_POSTS, SET_POST, CREATE_POST, LIKE_POST, UNLIKE_POST, DELETE_POST, LOADING_DATA, SUBMIT_COMMENT } from '../types';
 
 const initialState = {
     posts: [],
@@ -14,6 +14,12 @@ export default function(state = initialState, action) {
                 isLoading: true
             }
         case SET_POSTS:
+            return {
+                ...state,
+                posts: action.payload,
+                isLoading: false
+            }
+        case APPEND_POSTS:
             return {
                 ...state,
                 posts: state.posts.concat(action.payload),

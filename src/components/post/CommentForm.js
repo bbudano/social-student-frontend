@@ -54,6 +54,7 @@ class CommentForm extends Component {
                         name="body"
                         type="text"
                         label="Comment on post"
+                        autoComplete="off"
                         helperText={errors.type === "COMMENT_ERROR" && errors.message}
                         error={errors.type === "COMMENT_ERROR" ? true : false}
                         value={this.state.body}

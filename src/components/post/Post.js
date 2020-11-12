@@ -72,7 +72,7 @@ class Post extends Component {
                     <Typography
                         variant="h5"
                         component={Link}
-                        to={`/users/${author}`}
+                        to={authenticated ? `/users/${author}` : '/login'}
                         color="primary"
                     >{author}</Typography>
                     {deleteButton}
